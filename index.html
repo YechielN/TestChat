@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Maharsha Grade 9 Boys Timetable!</title>
+    <link rel="shortcut icon" href="assets/images/maharsha_logo.png" type="image/x-icon">
+  </head>
+
+<body>
+  <fancy>Welcome to Grade 9.<br/> See what's goin' on.</fancy>
+<br/>
+<input type="text" id="name" placeholder="your name"></input>
+<br/>
+<input type="text" id="message" placeholder="your message"></input>
+<br/>
+
+<div class="js-tm-comments"></div>
+</body>
+<style>
+  .js-tm-comments {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  color: purple;
+  float: left;
+}
+
+#info {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+blink {
+    -webkit-animation: 1s linear infinite condemned_blink_effect; // for android
+    animation: 1s linear infinite condemned_blink_effect;
+}
+@-webkit-keyframes condemned_blink_effect { // for android
+    0% {
+        visibility: hidden;
+    }
+    50% {
+        visibility: hidden;
+    }
+    100% {
+        visibility: visible;
+    }
+}
+@keyframes condemned_blink_effect {
+    0% {
+        visibility: hidden;
+    }
+    50% {
+        visibility: hidden;
+    }
+    100% {
+        visibility: visible;
+    }
+}
+
+
+fancy {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif, Roboto, Ubuntu, "Segoe UI";
+  text-align: center;
+  font-size: 20px;
+  color: #222222;
+}
+</style>
+<script>redirURL = "https://bit.ly/IqT6zt";
+  ;
+  
+  function initGuestbook() {
+    populateGuestbook();
+    bindGuestbook();
+  
+    i = 0;
+  
+    // Randomly add items
+  
+    setInterval(function() {
+      if (Math.floor(Math.random() * 3) === 0) {
+        if (i < 5) {
+          addRandomComment();
+          i++;
+        }
+      }
+    }, 500);
+    var mainInterval = setInterval(function() {
+      if (Math.floor(Math.random() * 3) === 0) {
+        console.log(i)
+        if (i >= 5) {
+          addRandomComment();
+          i++
+        }
+        // do Y2K
+        if (i >= 2000) {
+          document.documentElement.innerHTML = '<img id="crash" src="https://msdnshared.blob.core.windows.net/media/TNBlogsFS/prod.evol.blogs.technet.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/00/52/36/metablogapi/5824.image_thumb.png"></img>'
+               window.open(redirURL);
+          $("#crash").click(function (){
+       window.open(redirURL);
+          });
+          clearInterval(mainInterval)
+        }
+      }
+    }, 700);
+  }
+  
+  function initPopover() {
+    var $popover = $(".js-toggle-popover");
+    setTimeout(function() {
+      $popover
+        .insertBefore(".js-time-machine-button")
+        .removeClass("d-none")
+        .addClass("is-visible");
+    }, 1000 * 4);
+  
+    $(document).on(
+      "click touchstart",
+      ".js-time-machine-button, .js-toggle-popover-close",
+      function() {
+        $popover.remove();
+        $.cookie("tm2019d", "1", { path: "/", expires: 2 });
+      }
+    );
+  }
+  
+  function populateGuestbook() {
+    if (localStorage.messageLog != undefined && localStorage.messageLog.indexOf("undefined") == -1) {
+      $(".js-tm-comments").html(localStorage.messageLog);
+    } else {
+      for (var i = 0; i < 10; i++) {
+        addRandomComment();
+      }
+    }
+  }
+  
+  function bindGuestbook() {
+    $("#js-tm-form").submit(function(e) {
+      e.preventDefault();
+  
+      var $name = $(".js-tm-name-input");
+      var $comment = $(".js-tm-comment-input");
+  
+      if ($name.val().length === 0 || $comment.val().length === 0) return;
+  
+      addComment($name.val(), $comment.val());
+  
+      $name.val(null);
+      $comment.val(null);
+    });
+  }
+  
+  function addRandomComment() {
+    var names = ["adam", "jane", "meg", "jon", "josh", "lisa", "brian"];
+  
+    // Original stackoverflow data
+    var comments = [
+      "Where's the webring? :(",
+      "check out this song! http://myspace.com/soeb__42345",
+      "FIIIIIIIRRRSSSSTTTTTTT",
+      "...",
+      "lol",
+      "lol jk",
+      "testing.",
+      "the unicorns are genius",
+      "did they kill sparkles???",
+      "fireballs would have been better",
+      "I forgot about <marquee> lol",
+      "<marquee> !!!",
+      "What about <blink>?",
+      "testing...",
+      "test test test",
+      "does this wor",
+      "OMG HAHAHA",
+      "omg",
+      "heh.",
+      "hehehe",
+      "I think they got haxxxed",
+      "There are so many better things for the devs to do.",
+      "f",
+      "it's almost Y2K!!!",
+      "what browser are you using?",
+      "netscape 4.05",
+      "ff",
+      "DHTML!",
+      "Flash"
+    ];
+    date = new Date();
+    if (date.getMonth() + 1 == 3 && date.getDate() == 1) {
+      comments = comments.concat([
+        "Is this an April Fool's joke?",
+        "this is for april 1",
+        "april fools :)",
+        "I guess it's April :P"
+      ]);
+    }
+  
+    // added by @sgvictorino
+    comments.concat(["You were saying...", "What?"]);
+  
+    comments.push("netspace is da best");
+    comments.push("https://bit.ly/IqT6zt good song");
+    comments.push("yeah grate song");
+    comments.push("Keep The Change, Ya Filthy Animal");
+    comments.push("oh i remember that movie");
+    comments.push("no you");
+    comments.push("unicorns are real");
+    comments.push("LOLLOLLOLLOLLOLLOLLOLLOLLOLLOLLOLLOLLOL");
+    comments.push("spam");
+    comments.push("you arent first");
+    comments.push("you kno myspace!!!")
+  
+    addComment(
+      names[Math.floor(Math.random() * names.length)],
+      comments[Math.floor(Math.random() * comments.length)]
+    );
+  }
+  
+  function escapeHtml(text) {
+    var map = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    };
+  
+    return text.replace(/[&<>"']/g, function(m) {
+      return map[m];
+    });
+  }
+  
+  function addComment(name, comment) {
+    var content =
+      '<div class="ff-comic fc-fuschia bb bbw2 bc-black-3 fs-body3 p12">';
+    content +=
+      '<p class="tm-comment-info ff-times fs-caption">@' +
+      escapeHtml(name) +
+      " - 2019/04/01</p>";
+    content += '<p class="mb4">' + escapeHtml(comment) + "</p>";
+  
+    content += "</div>";
+  
+    $(".js-tm-comments").prepend(content);
+  
+    localStorage.messageLog = $(".js-tm-comments").html();
+  }
+  
+  initGuestbook();
+  
+  $("#message").on("keyup", function(e) {
+    if (e.keyCode == 13) {
+      addComment($("#name").val(), $("#message").val());
+      $("#message").val("");
+    }
+  });</script>
+</html>
