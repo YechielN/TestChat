@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"/>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+        <title>Realtime Chat</title>
+    </head>
+    <body>
+        <nav class="navbar sticky-top navbar-toggleable-md navbar-light bg-faded">
+            <h1 class="navbar-brand mb-0">Realtime Chat</h1>
+            <a class="btn btn-secondary ml-auto" href="https://github.com/dhanyn10/simple-chat-socketio" target="_blank">Fork <i class="fa fa-code-fork" aria-hidden="true"></i></a>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-9">
+                    <ul class="list-group"></ul>
+                    <div class="container">
+                        <div class="row">
+                            <textarea id="ms" class="form-control"></textarea>
+                            <button class="btn btn-outline-danger" id="send">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket      = io();
+            
+            $('#send').click(function(){
+                socket.emit('chat message', $('#ms').val());
+                $('#ms').val('');
+                return false;
+            });
+            socket.on('chat message', function(msg){
+                $('.list-group').append("<li class='list-group-item'>"+msg+"</li>");
+            });
+            
+            //retrieve data from index.js how many user online
+//            socket.on('calc', function(data){
+//                $("#useronline").html(data['count']);
+//            });
+        </script>
+    </body>
+</html>
